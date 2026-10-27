@@ -47,29 +47,29 @@ export default function Counter({
       return;
     }
 
-    number.textContent = format(0, decimals);
-
-    const state = { value: 0 };
-    const tween = gsap.to(state, {
-      value,
-      duration: 1.8,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: wrapper,
-        start: "top 86%",
-        once: true,
-      },
-      onUpdate: () => {
-        number.textContent = format(state.value, decimals);
-      },
-      onComplete: () => {
-        number.textContent = finalValue;
-      },
-    });
+    const ctx = gsap.context(() => {
+      number.textContent = format(0, decimals);
+      const state = { value: 0 };
+      gsap.to(state, {
+        value,
+        duration: 1.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: wrapper,
+          start: "top 86%",
+          once: true,
+        },
+        onUpdate: () => {
+          if (number) number.textContent = format(state.value, decimals);
+        },
+        onComplete: () => {
+          if (number) number.textContent = finalValue;
+        },
+      });
+    }, wrapper);
 
     return () => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
+      ctx.revert();
     };
   }, [value, decimals]);
 
