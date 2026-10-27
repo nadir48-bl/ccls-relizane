@@ -76,6 +76,7 @@ export default function Stats() {
                       value={item.value}
                       suffix={item.suffix}
                       decimals={item.decimals}
+                      pad={item.pad}
                       unit={item.unit}
                     />
                   </div>

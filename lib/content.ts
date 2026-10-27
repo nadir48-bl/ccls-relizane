@@ -26,9 +26,9 @@ const futureLink = "#";
 
 /** Current figures supplied in the brief; tokens above stay ready for the real data. */
 export const figures = {
-  years: "52+",
+  years: "99+",
   clients: "6 000+",
-  sites: "20",
+  sites: "07",
   capacity: "1,2 مليون",
 };
 
@@ -88,8 +88,8 @@ export const hero = {
   },
   chips: [
     {
-      value: "20",
-      unit: "موقعاً",
+      value: "07",
+      unit: "مواقع",
       label: "عبر الولاية",
       token: placeholders.STAT_SITES,
     },
@@ -120,6 +120,10 @@ export const news = {
   playLabel: "تشغيل العرض",
   progressLabel: "تقدم العرض",
   listLabel: "قائمة الأخبار",
+  updatedLabel: "آخر تحديث",
+  countLabel: "أخبار",
+  previousLabel: "الخبر السابق",
+  nextLabel: "الخبر التالي",
   slides: [
     {
       id: "campagne-labour",
@@ -172,6 +176,8 @@ export const news = {
 };
 
 export const shortcuts = {
+  kicker: "وصول سريع",
+  countLabel: "اختصارات",
   title: "ما تبحث عنه غالباً",
   items: [
     {
@@ -195,7 +201,7 @@ export const shortcuts = {
     {
       icon: "map-pin",
       title: "أقرب موقع إليك",
-      subtitle: `${figures.sites} موقعاً عبر الولاية`,
+      subtitle: `${figures.sites} مواقع عبر الولاية`,
       href: "#reseau",
     },
     {
@@ -211,6 +217,7 @@ export type StatItem = {
   value: number;
   suffix?: string;
   decimals?: number;
+  pad?: number;
   unit?: string;
   label: string;
   token: string;
@@ -226,12 +233,12 @@ export const stats: {
 } = {
   id: "chiffres",
   networkId: "reseau",
-  kicker: "أرقام التعاونية",
-  title: "خمسة عقود من الثقة في الحقل",
-  lede: "من الحقل إلى المخزن، أرقام تعكس قرب التعاونية من الفلاحين وحضورها في كل ربوع الولاية.",
+  kicker: "أرقامنا",
+  title: "ثقة تُزرع منذ 1927",
+  lede: "من الحقل إلى المخزن، أرقام بسيطة تحكي قصة كبيرة: تعاونية قريبة من الفلاحين، حاضرة في كل ربوع الولاية.",
   items: [
     {
-      value: 52,
+      value: 99,
       suffix: "+",
       label: "سنة في خدمة الفلاح",
       token: placeholders.STAT_YEARS,
@@ -243,8 +250,9 @@ export const stats: {
       token: placeholders.STAT_CLIENTS,
     },
     {
-      value: 20,
-      label: "موقعاً عبر الولاية",
+      value: 7,
+      pad: 2,
+      label: "مواقع عبر الولاية",
       token: placeholders.STAT_SITES,
     },
     {

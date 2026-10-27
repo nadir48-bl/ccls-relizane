@@ -10,26 +10,27 @@ type CounterProps = {
   value: number;
   suffix?: string;
   decimals?: number;
+  pad?: number;
   unit?: string;
 };
 
-function format(value: number, decimals = 0) {
-  if (decimals > 0) {
-    return value
-      .toFixed(decimals)
-      .replace(".", ",")
-      .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-  }
+function format(value: number, decimals = 0, pad = 0) {
+  const formatted =
+    decimals > 0
+      ? value.toFixed(decimals).replace(".", ",")
+      : Math.round(value).toString();
+  const [integer, fraction] = formatted.split(",");
+  const padded = pad > 0 ? integer.padStart(pad, "0") : integer;
+  const grouped = padded.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 
-  return Math.round(value)
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  return fraction ? `${grouped},${fraction}` : grouped;
 }
 
 export default function Counter({
   value,
   suffix,
   decimals = 0,
+  pad = 0,
   unit,
 }: CounterProps) {
   const wrapperRef = useRef<HTMLSpanElement>(null);
@@ -40,7 +41,7 @@ export default function Counter({
     const number = numberRef.current;
     if (!wrapper || !number) return;
 
-    const finalValue = format(value, decimals);
+    const finalValue = format(value, decimals, pad);
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       number.textContent = finalValue;
@@ -48,7 +49,7 @@ export default function Counter({
     }
 
     const ctx = gsap.context(() => {
-      number.textContent = format(0, decimals);
+      number.textContent = format(0, decimals, pad);
       const state = { value: 0 };
       gsap.to(state, {
         value,
@@ -60,7 +61,7 @@ export default function Counter({
           once: true,
         },
         onUpdate: () => {
-          if (number) number.textContent = format(state.value, decimals);
+          if (number) number.textContent = format(state.value, decimals, pad);
         },
         onComplete: () => {
           if (number) number.textContent = finalValue;
@@ -71,13 +72,13 @@ export default function Counter({
     return () => {
       ctx.revert();
     };
-  }, [value, decimals]);
+  }, [value, decimals, pad]);
 
   return (
     <span ref={wrapperRef} className="inline-flex items-baseline gap-2">
       <span dir="ltr" className="inline-flex items-baseline">
         <span ref={numberRef} aria-hidden="true">
-          {format(value, decimals)}
+          {format(value, decimals, pad)}
         </span>
         {suffix ? <span aria-hidden="true">{suffix}</span> : null}
       </span>
@@ -90,7 +91,7 @@ export default function Counter({
         </span>
       ) : null}
       <span className="sr-only">
-        {format(value, decimals)}
+        {format(value, decimals, pad)}
         {suffix ?? ""} {unit ?? ""}
       </span>
     </span>

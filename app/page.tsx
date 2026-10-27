@@ -26,10 +26,10 @@ export default function Page() {
       <main id="main-content">
         <Hero />
         <FlashMarquee />
+        <CtaBand />
         <News />
         <Shortcuts />
         <Services />
-        <CtaBand />
         <Stats />
       </main>
 

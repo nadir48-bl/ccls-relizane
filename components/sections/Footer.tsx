@@ -1,3 +1,6 @@
+"use client";
+
+import { useRef, useCallback } from "react";
 import {
   ArrowUp,
   Clock,
@@ -15,16 +18,32 @@ function isPlaceholder(value: string) {
 }
 
 export default function Footer() {
+  const footerRef = useRef<HTMLElement>(null);
   const { contact } = footer;
   const phoneIsPlaceholder = isPlaceholder(contact.phone);
   const emailIsPlaceholder = isPlaceholder(contact.email);
 
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const el = footerRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    el.style.setProperty("--mouse-x", `${x}px`);
+    el.style.setProperty("--mouse-y", `${y}px`);
+  }, []);
+
   return (
     <footer
       id="contact"
+      ref={footerRef}
+      onMouseMove={handleMouseMove}
       data-spy="contact"
       className="band-green relative overflow-hidden border-t border-white/10 pb-8 pt-20 sm:pt-24 text-white"
     >
+      {/* Interactive Mouse Hover Spotlight */}
+      <div className="footer-spotlight" aria-hidden="true" />
+
       {/* Animated Subtle Glowing Top Line */}
       <div className="footer-glow-line" aria-hidden="true">
         <div className="footer-glow-beam" />
@@ -59,7 +78,7 @@ export default function Footer() {
         className="pointer-events-none absolute end-[8%] top-14 size-2.5 rounded-full bg-red shadow-[0_0_8px_rgba(216,68,46,0.6)] animate-pulse"
       />
 
-      <div className="relative mx-auto w-full max-w-[1440px] px-4 sm:px-6 xl:px-10">
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 sm:px-6 xl:px-10">
         <div className="grid gap-10 sm:grid-cols-3 lg:grid-cols-12 lg:gap-8">
           {/* Brand & Tutelle Column */}
           <Reveal className="sm:col-span-3 lg:col-span-4">
@@ -68,30 +87,32 @@ export default function Footer() {
               className="flex items-center gap-3 group"
               aria-label={`${site.brandLatin} — ${site.title}`}
             >
-              <BrandMark />
+              <div className="transition-transform duration-300 group-hover:scale-105">
+                <BrandMark />
+              </div>
               <span className="flex flex-col">
-                <span className="brand-latin font-display text-[18px] font-bold text-white transition-colors group-hover:text-orange">
+                <span className="brand-latin font-display text-[18px] font-bold text-white transition-colors duration-300 group-hover:text-orange">
                   {site.brandLatin}
                 </span>
-                <span className="mt-1 text-[10.5px] text-white/65">
+                <span className="mt-1 text-[11px] font-medium text-white/80">
                   {site.brandSubtitle}
                 </span>
               </span>
             </a>
 
-            <div className="mt-3.5 inline-flex items-center gap-1.5 rounded-full border border-orange/30 bg-orange/10 px-3 py-1 text-[11px] font-medium text-orange">
+            <div className="mt-3.5 inline-flex items-center gap-1.5 rounded-full border border-orange/30 bg-orange/10 px-3 py-1 text-[11px] font-medium text-orange transition-all duration-300 hover:scale-[1.03] hover:border-orange/60 hover:bg-orange/20 hover:shadow-[0_0_12px_rgba(240,126,31,0.25)]">
               <ShieldCheck className="size-3.5 shrink-0" />
               <span>{tutelle.items[2]}</span>
             </div>
 
-            <p className="mt-4 max-w-sm text-[13px] leading-[1.95] text-white/65">
+            <p className="mt-4 max-w-sm text-[13px] leading-[1.95] text-white/85">
               {site.footerDescription}
             </p>
           </Reveal>
 
           {/* Quick Links Column */}
           <Reveal delay={0.06} className="lg:col-span-2">
-            <h3 className="mb-4 flex items-center gap-2 text-[12.5px] font-semibold text-white">
+            <h3 className="mb-4 flex items-center gap-2 text-[13px] font-bold text-white">
               <span
                 aria-hidden="true"
                 className="h-px w-5 bg-orange"
@@ -111,7 +132,7 @@ export default function Footer() {
 
           {/* Spaces Column */}
           <Reveal delay={0.12} className="lg:col-span-3">
-            <h3 className="mb-4 flex items-center gap-2 text-[12.5px] font-semibold text-white">
+            <h3 className="mb-4 flex items-center gap-2 text-[13px] font-bold text-white">
               <span
                 aria-hidden="true"
                 className="h-px w-5 bg-orange"
@@ -134,69 +155,80 @@ export default function Footer() {
 
           {/* Contact Details Column */}
           <Reveal delay={0.18} className="lg:col-span-3">
-            <h3 className="mb-4 flex items-center gap-2 text-[12.5px] font-semibold text-white">
+            <h3 className="mb-4 flex items-center gap-2 text-[13px] font-bold text-white">
               <span
                 aria-hidden="true"
                 className="h-px w-5 bg-orange"
               />
               {footer.contactTitle}
             </h3>
-            <ul className="flex flex-col gap-3 text-[13px] leading-relaxed">
-              <li className="flex items-start gap-2.5 text-white/70">
-                <MapPin
-                  className="mt-1 size-4 shrink-0 text-orange"
-                  strokeWidth={1.75}
-                  aria-hidden="true"
-                />
-                <span className="break-words">{contact.address}</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <Phone
-                  className="mt-1 size-4 shrink-0 text-orange"
-                  strokeWidth={1.75}
-                  aria-hidden="true"
-                />
-                {phoneIsPlaceholder ? (
-                  <span dir="ltr" className="text-orange/90">
-                    {contact.phone}
+            <ul className="flex flex-col gap-1 text-[13px] leading-relaxed -mx-2">
+              {/* Address */}
+              <li>
+                <div className="footer-contact-row group">
+                  <span className="footer-icon-wrap" aria-hidden="true">
+                    <MapPin className="size-4 shrink-0" strokeWidth={1.8} />
                   </span>
-                ) : (
-                  <a
-                    href={`tel:${contact.phone.replace(/\s/g, "")}`}
-                    dir="ltr"
-                    className="footer-link text-orange"
-                  >
-                    {contact.phone}
-                  </a>
-                )}
-              </li>
-              <li className="flex items-start gap-2.5">
-                <Mail
-                  className="mt-1 size-4 shrink-0 text-orange"
-                  strokeWidth={1.75}
-                  aria-hidden="true"
-                />
-                {emailIsPlaceholder ? (
-                  <span dir="ltr" className="break-all text-orange/90">
-                    {contact.email}
+                  <span className="break-words text-white/80 transition-colors duration-200 group-hover:text-white pt-0.5">
+                    {contact.address}
                   </span>
-                ) : (
-                  <a
-                    href={`mailto:${contact.email}`}
-                    dir="ltr"
-                    className="footer-link break-all text-orange"
-                  >
-                    {contact.email}
-                  </a>
-                )}
+                </div>
               </li>
-              <li className="flex items-start gap-2.5 text-white/65">
-                <Clock
-                  className="mt-1 size-4 shrink-0 text-orange"
-                  strokeWidth={1.75}
-                  aria-hidden="true"
-                />
-                <span>{contact.hours}</span>
+
+              {/* Phone */}
+              <li>
+                <div className="footer-contact-row group">
+                  <span className="footer-icon-wrap" aria-hidden="true">
+                    <Phone className="size-4 shrink-0" strokeWidth={1.8} />
+                  </span>
+                  {phoneIsPlaceholder ? (
+                    <span dir="ltr" className="text-orange font-medium pt-0.5">
+                      {contact.phone}
+                    </span>
+                  ) : (
+                    <a
+                      href={`tel:${contact.phone.replace(/\s/g, "")}`}
+                      dir="ltr"
+                      className="text-orange font-medium transition-colors duration-200 group-hover:text-white pt-0.5"
+                    >
+                      {contact.phone}
+                    </a>
+                  )}
+                </div>
+              </li>
+
+              {/* Email */}
+              <li>
+                <div className="footer-contact-row group">
+                  <span className="footer-icon-wrap" aria-hidden="true">
+                    <Mail className="size-4 shrink-0" strokeWidth={1.8} />
+                  </span>
+                  {emailIsPlaceholder ? (
+                    <span dir="ltr" className="break-all text-orange font-medium pt-0.5">
+                      {contact.email}
+                    </span>
+                  ) : (
+                    <a
+                      href={`mailto:${contact.email}`}
+                      dir="ltr"
+                      className="break-all text-orange font-medium transition-colors duration-200 group-hover:text-white pt-0.5"
+                    >
+                      {contact.email}
+                    </a>
+                  )}
+                </div>
+              </li>
+
+              {/* Working Hours */}
+              <li>
+                <div className="footer-contact-row group">
+                  <span className="footer-icon-wrap" aria-hidden="true">
+                    <Clock className="size-4 shrink-0" strokeWidth={1.8} />
+                  </span>
+                  <span className="text-white/75 transition-colors duration-200 group-hover:text-white pt-0.5">
+                    {contact.hours}
+                  </span>
+                </div>
               </li>
             </ul>
           </Reveal>
@@ -204,10 +236,10 @@ export default function Footer() {
 
         {/* Footer Bottom Bar */}
         <div className="mt-16 flex items-center justify-between gap-4 border-t border-orange/20 pt-5 sm:mt-20">
-          <p className="flex min-w-0 items-start gap-2.5 text-[11px] leading-relaxed text-white/60 sm:text-[11.5px]">
+          <p className="flex min-w-0 items-start gap-2.5 text-[11px] leading-relaxed text-white/75 sm:text-[11.5px]">
             <span
               aria-hidden="true"
-              className="mt-1.5 size-1.5 shrink-0 rounded-full bg-orange"
+              className="mt-1.5 size-1.5 shrink-0 rounded-full bg-orange shadow-[0_0_6px_rgba(240,126,31,0.8)]"
             />
             <span>
               <span className="font-medium text-orange">
