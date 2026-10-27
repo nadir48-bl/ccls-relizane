@@ -102,7 +102,7 @@ export default function Header() {
         hidden ? "-translate-y-full" : "translate-y-0"
       } ${
         isSolid
-          ? "border-line bg-[rgba(255,253,248,0.9)] text-ink shadow-[0_8px_30px_rgba(34,26,16,0.05)] backdrop-blur-xl"
+          ? "border-line bg-[rgba(255,253,248,0.9)] text-ink shadow-[0_10px_36px_-12px_rgba(34,26,16,0.18)] backdrop-blur-xl"
           : "border-transparent bg-transparent text-white"
       }`}
     >

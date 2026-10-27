@@ -46,7 +46,7 @@ export default function Footer() {
                 <span className="brand-latin font-display text-[18px] font-bold text-white">
                   {site.brandLatin}
                 </span>
-                <span className="mt-1 text-[10.5px] text-white/60">
+                <span className="mt-1 text-[10.5px] text-white/65">
                   {site.brandSubtitle}
                 </span>
               </span>
@@ -166,14 +166,23 @@ export default function Footer() {
           </Reveal>
         </div>
 
-        <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-white/12 pt-5 sm:mt-20">
-          <p className="text-[11px] leading-relaxed text-white/50 sm:text-[11.5px]">
-            {footer.copyright}
+        <div className="mt-16 flex items-center justify-between gap-4 border-t border-orange/20 pt-5 sm:mt-20">
+          <p className="flex min-w-0 items-start gap-2.5 text-[11px] leading-relaxed text-white/60 sm:text-[11.5px]">
+            <span
+              aria-hidden="true"
+              className="mt-1.5 size-1.5 shrink-0 rounded-full bg-orange"
+            />
+            <span>
+              <span className="font-medium text-orange">
+                {footer.copyrightYear}
+              </span>{" "}
+              {footer.copyrightText}
+            </span>
           </p>
           <a
             href="#top"
             aria-label={a11y.backToTop}
-            className="grid size-10 place-items-center rounded-full border border-white/20 text-white/70 transition-colors duration-200 hover:border-orange hover:text-orange"
+            className="footer-top"
           >
             <ArrowUp
               className="size-4"

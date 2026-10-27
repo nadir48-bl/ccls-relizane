@@ -28,9 +28,9 @@ export default function Page() {
         <FlashMarquee />
         <News />
         <Shortcuts />
-        <Stats />
         <Services />
         <CtaBand />
+        <Stats />
       </main>
 
       <Footer />

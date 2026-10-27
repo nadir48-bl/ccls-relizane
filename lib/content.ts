@@ -219,12 +219,16 @@ export type StatItem = {
 export const stats: {
   id: string;
   networkId: string;
-  ariaLabel: string;
+  kicker: string;
+  title: string;
+  lede: string;
   items: StatItem[];
 } = {
   id: "chiffres",
   networkId: "reseau",
-  ariaLabel: "أرقام التعاونية",
+  kicker: "أرقام التعاونية",
+  title: "خمسة عقود من الثقة في الحقل",
+  lede: "من الحقل إلى المخزن، أرقام تعكس قرب التعاونية من الفلاحين وحضورها في كل ربوع الولاية.",
   items: [
     {
       value: 52,
@@ -333,8 +337,9 @@ export const footer = {
     email: placeholders.EMAIL,
     hours: "الأحد – الخميس : 08:00 – 16:30",
   },
-  copyright:
-    "© 2026 تعاونية الحبوب والبقول الجافة غليزان. جميع الحقوق محفوظة.",
+  copyrightYear: "© 2026",
+  copyrightText:
+    "تعاونية الحبوب والبقول الجافة غليزان. جميع الحقوق محفوظة.",
 };
 
 export const a11y = {

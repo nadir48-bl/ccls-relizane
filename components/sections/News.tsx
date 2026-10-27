@@ -161,7 +161,7 @@ export default function News() {
           >
             <div
               id="news-stage"
-              className="card relative overflow-hidden rounded-[24px]"
+              className="card relative overflow-hidden rounded-card"
             >
               <div className="relative min-h-[460px] sm:min-h-[520px] lg:min-h-[560px]">
                 {news.slides.map((item, slideIndex) => (
@@ -186,7 +186,7 @@ export default function News() {
 
                 <div
                   aria-hidden="true"
-                  className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,77,42,0.12)_0%,rgba(15,77,42,0.2)_38%,rgba(15,77,42,0.9)_100%)]"
+                  className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,77,42,0.12)_0%,rgba(15,77,42,0.2)_38%,rgba(15,77,42,0.94)_100%)]"
                 />
                 <div
                   aria-hidden="true"

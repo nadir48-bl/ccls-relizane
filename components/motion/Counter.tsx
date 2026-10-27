@@ -84,7 +84,7 @@ export default function Counter({
       {unit ? (
         <span
           aria-hidden="true"
-          className="text-[0.42em] font-medium text-white/75"
+          className="text-[0.42em] font-medium opacity-75"
         >
           {unit}
         </span>
