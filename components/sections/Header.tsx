@@ -170,15 +170,17 @@ export default function Header() {
         >
           <BrandMark priority />
           <span className="flex min-w-0 flex-col leading-none">
-            <span className="brand-latin font-display text-[16px] font-bold sm:text-[17px]">
-              {site.brandLatin}
+            <span className="brand-latin font-display text-[17px] font-bold sm:text-[18px]">
+              {site.brandLatin.split(" ")[0]}{" "}
+              <span className="alt-word">{site.brandLatin.split(" ").slice(1).join(" ")}</span>
             </span>
             <span
-              className={`mt-1.5 hidden truncate text-[10.5px] font-medium leading-none transition-colors duration-300 sm:block ${
+              className={`mt-1.5 hidden truncate text-[12px] font-bold leading-none sm:block ${
                 isSolid ? "text-muted" : "text-white/70"
               }`}
             >
-              {site.brandSubtitle}
+              {site.brandSubtitle.split(" — ")[0] + " — "}
+              <span className="alt-word">{site.brandSubtitle.split(" — ")[1]}</span>
             </span>
             {showSectionChip ? (
               <span className="mt-1.5 flex items-center gap-1.5 text-[10.5px] font-medium leading-none text-muted sm:hidden">

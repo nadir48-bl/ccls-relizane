@@ -15,16 +15,14 @@ export default function BrandMark({
   const tile = size === "md" ? "size-12" : "size-11";
 
   return (
-    <span
-      className={`relative grid ${tile} shrink-0 place-items-center overflow-hidden rounded-full bg-bg ring-1 ring-black/5 ${className}`}
-    >
+    <span className={`relative grid ${tile} shrink-0 place-items-center ${className}`}>
       <Image
         src="/logo.png"
         alt={site.logoAlt}
         width={96}
         height={96}
         priority={priority}
-        className="h-[86%] w-[86%] object-contain"
+        className="h-full w-full object-contain"
       />
     </span>
   );

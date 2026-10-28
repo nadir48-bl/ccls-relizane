@@ -87,15 +87,15 @@ export default function Footer() {
               className="flex items-center gap-3 group"
               aria-label={`${site.brandLatin} — ${site.title}`}
             >
-              <div className="transition-transform duration-300 group-hover:scale-105">
-                <BrandMark />
-              </div>
+              <BrandMark />
               <span className="flex flex-col">
-                <span className="brand-latin font-display text-[18px] font-bold text-white transition-colors duration-300 group-hover:text-orange">
-                  {site.brandLatin}
+                <span className="brand-latin font-display text-[18px] font-bold text-white">
+                  {site.brandLatin.split(" ")[0]}{" "}
+                  <span className="alt-word">{site.brandLatin.split(" ").slice(1).join(" ")}</span>
                 </span>
-                <span className="mt-1 text-[11px] font-medium text-white/80">
-                  {site.brandSubtitle}
+                <span className="mt-1 text-[12px] font-bold text-white/80">
+                  {site.brandSubtitle.split(" — ")[0] + " — "}
+                  <span className="alt-word">{site.brandSubtitle.split(" — ")[1]}</span>
                 </span>
               </span>
             </a>
