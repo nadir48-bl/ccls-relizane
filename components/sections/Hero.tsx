@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowLeft, MapPin, Users } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -148,15 +149,15 @@ export default function Hero() {
             </h1>
 
             <div className="mt-8 flex flex-wrap items-center gap-3 sm:mt-10">
-              <a
-                href="#adhesion"
+              <Link
+                href="/espace-client"
                 className="hero-cta hero-anim btn btn-white"
               >
                 <span>
                   {hero.primaryCta}
                   <ArrowLeft className="size-4" strokeWidth={1.75} />
                 </span>
-              </a>
+              </Link>
               <a
                 href="#services"
                 className="hero-cta hero-anim btn btn-ghost-light"

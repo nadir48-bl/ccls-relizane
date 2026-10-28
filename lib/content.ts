@@ -21,9 +21,6 @@ export const placeholders = {
   N_SITES: "[[N_SITES]]",
 } as const;
 
-/** Future routes resolve to "#" until the destination pages exist. */
-const futureLink = "#";
-
 /** Current figures supplied in the brief; tokens above stay ready for the real data. */
 export const figures = {
   years: "99+",
@@ -61,14 +58,14 @@ export const tutelle = {
 
 export const nav = {
   items: [
-    { label: "الرئيسية", href: "#top", spy: "top" },
-    { label: "التعاونية", href: "#chiffres", spy: "chiffres" },
-    { label: "شبكتنا", href: "#reseau", spy: "reseau" },
-    { label: "الخدمات", href: "#services", spy: "services" },
-    { label: "الأسعار والرزنامة", href: futureLink, spy: null },
-    { label: "الإرشاد الفلاحي", href: futureLink, spy: null },
-    { label: "فضاء الزبون", href: futureLink, spy: null },
-    { label: "تواصل", href: "#contact", spy: "contact" },
+    { label: "الرئيسية", href: "/#top", spy: "top" },
+    { label: "التعاونية", href: "/#chiffres", spy: "chiffres" },
+    { label: "شبكتنا", href: "/#reseau", spy: "reseau" },
+    { label: "الخدمات", href: "/#services", spy: "services" },
+    { label: "الأسعار والرزنامة", href: "/tarifs", spy: "shortcuts" },
+    { label: "الإرشاد الفلاحي", href: "/conseil-agricole", spy: "news" },
+    { label: "فضاء الزبون", href: "/espace-client", spy: "adhesion" },
+    { label: "تواصل", href: "/#contact", spy: "contact" },
   ],
   cta: "فضاء الزبون",
   menuLabel: "فتح القائمة",
@@ -184,31 +181,31 @@ export const shortcuts = {
       icon: "tag",
       title: "أسعار الشراء",
       subtitle: "قمح صلب، ليّن، شعير وبقول جافة",
-      href: futureLink,
+      href: "/tarifs",
     },
     {
       icon: "calendar",
       title: "رزنامة موسم 2026/2027",
       subtitle: "مواعيد الحرث والبذر والحصاد",
-      href: futureLink,
+      href: "/tarifs#calendrier",
     },
     {
       icon: "file-text",
       title: "الوثائق المطلوبة",
       subtitle: "ملف فتح حساب لدى التعاونية",
-      href: "#adhesion",
+      href: "/espace-client#dossier",
     },
     {
       icon: "map-pin",
       title: "أقرب موقع إليك",
       subtitle: `${figures.sites} مواقع عبر الولاية`,
-      href: "#reseau",
+      href: "/#reseau",
     },
     {
       icon: "tractor",
       title: "كراء العتاد الفلاحي",
       subtitle: "جرارات، حاصدات وباذرات",
-      href: "#services",
+      href: "/#services",
     },
   ],
 };
@@ -317,23 +314,23 @@ export const footer = {
   id: "contact",
   quickLinksTitle: "روابط سريعة",
   quickLinks: [
-    { label: "التعاونية", href: "#chiffres" },
-    { label: "شبكتنا", href: "#reseau" },
-    { label: "الخدمات", href: "#services" },
-    { label: "الأسعار والرزنامة", href: futureLink },
-    { label: "الإرشاد الفلاحي", href: futureLink },
-    { label: "تواصل", href: "#contact" },
+    { label: "التعاونية", href: "/#chiffres" },
+    { label: "شبكتنا", href: "/#reseau" },
+    { label: "الخدمات", href: "/#services" },
+    { label: "الأسعار والرزنامة", href: "/tarifs" },
+    { label: "الإرشاد الفلاحي", href: "/conseil-agricole" },
+    { label: "تواصل", href: "/#contact" },
   ],
   spacesTitle: "الفضاءات",
   spaces: [
     {
       label: "فضاء منتجي الحبوب والبقول الجافة",
-      href: futureLink,
+      href: "/espace-client?tab=producer",
       token: placeholders.LINK_ESPACE_PROD,
     },
     {
       label: "فضاء مشتري البقول الجافة",
-      href: futureLink,
+      href: "/espace-client?tab=buyer",
       token: placeholders.LINK_ESPACE_ACHETEUR,
     },
   ],

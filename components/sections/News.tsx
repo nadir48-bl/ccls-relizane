@@ -123,6 +123,7 @@ export default function News() {
     <section
       id="news"
       ref={sectionRef}
+      data-spy="news"
       aria-labelledby="news-title"
       className="relative overflow-hidden bg-bg py-24 sm:py-28 lg:py-32"
     >

@@ -51,11 +51,18 @@ export default function SmoothScroll() {
       const source = event.target;
       if (!(source instanceof Element)) return;
 
-      const anchor = source.closest<HTMLAnchorElement>('a[href^="#"]');
+      const anchor = source.closest<HTMLAnchorElement>('a[href^="#"], a[href^="/#"]');
       if (!anchor) return;
 
-      const hash = anchor.getAttribute("href");
-      if (!hash || hash === "#") return;
+      let hash = anchor.getAttribute("href");
+      if (!hash || hash === "#" || hash === "/#") return;
+
+      if (hash.startsWith("/#")) {
+        if (window.location.pathname !== "/" && window.location.pathname !== "") {
+          return;
+        }
+        hash = hash.slice(1);
+      }
 
       const id = decodeURIComponent(hash.slice(1));
       const target = id ? document.getElementById(id) : null;

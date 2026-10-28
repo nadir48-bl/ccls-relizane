@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { ArrowLeft, Menu, X } from "lucide-react";
 import BrandMark from "@/components/BrandMark";
 import { nav, site } from "@/lib/content";
@@ -107,8 +108,8 @@ export default function Header() {
       }`}
     >
       <div className="mx-auto flex h-full w-full max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 xl:px-10">
-        <a
-          href="#top"
+        <Link
+          href="/"
           className="group flex min-w-0 items-center gap-3"
           aria-label={`${site.brandLatin} — ${site.title}`}
         >
@@ -125,7 +126,7 @@ export default function Header() {
               {site.brandSubtitle}
             </span>
           </span>
-        </a>
+        </Link>
 
         <nav
           aria-label={nav.navLabel}

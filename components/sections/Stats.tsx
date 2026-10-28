@@ -44,6 +44,7 @@ export default function Stats() {
         >
           <div
             id={stats.networkId}
+            data-spy={stats.networkId}
             className="stats-panel relative overflow-hidden rounded-[24px] border border-line bg-white shadow-soft"
           >
             <span

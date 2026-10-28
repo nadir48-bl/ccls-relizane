@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useRef } from "react";
+import Link from "next/link";
 import { ArrowLeft, FileText, PhoneCall, Sparkles } from "lucide-react";
 import Reveal from "@/components/motion/Reveal";
 import { accountCta } from "@/lib/content";
@@ -84,8 +85,8 @@ export default function CtaBand() {
           {/* Action Buttons */}
           <Reveal delay={0.08} className="shrink-0">
             <div className="flex flex-wrap items-center gap-3">
-              <a
-                href="#contact"
+              <Link
+                href="/espace-client#dossier"
                 className="btn btn-white text-[12.5px] sm:text-[13px] py-2 px-5 group shadow-md"
               >
                 <span className="flex items-center gap-2">
@@ -93,7 +94,7 @@ export default function CtaBand() {
                   <span>{accountCta.primaryCta}</span>
                   <ArrowLeft className="size-4 shrink-0 transition-transform duration-300 group-hover:-translate-x-1" />
                 </span>
-              </a>
+              </Link>
 
               <a
                 href="#contact"

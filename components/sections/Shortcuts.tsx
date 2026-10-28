@@ -24,6 +24,7 @@ export default function Shortcuts() {
   return (
     <section
       id="shortcuts"
+      data-spy="shortcuts"
       aria-labelledby="shortcuts-title"
       className="relative overflow-hidden bg-bg-alt py-24 sm:py-28 lg:py-32"
     >
