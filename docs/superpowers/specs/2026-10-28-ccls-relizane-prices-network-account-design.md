@@ -199,6 +199,8 @@ Payload cannot run on a static/shared cPanel account. It needs a Node process an
 
 The five routes `/prix`, `/calendrier`, `/documents`, `/reseau`, and `/materiel` are already covered by the shortcut detail pages plan. This design layers live Payload data and the map on `/prix` and `/reseau`, and adds `/adhesion`, `/actualites`, `/faq`, `/contact`, and the trust/legal pages. Do not rebuild the existing five from scratch.
 
+**Slugs are provisional.** The earlier detail plan uses `/prix`, `/calendrier`, `/documents`, `/reseau`, `/materiel`; the current working tree links to `/tarifs`, `/espace-client`, and `/conseil-agricole`. Reconcile them once, at the start of planning, and use one spelling everywhere. This affects links, redirects, SEO, and the Payload preview URLs, so it is a planning decision, not a late rename.
+
 **Navigation:** five primary items maximum — الرئيسية، الأسعار، شبكتنا، الخدمات، تواصل — plus the CTA "افتح حسابك". Move about, news, FAQ, and legal links to the footer or a secondary menu. The current eight items are too many.
 
 ## 10. Payload collections and globals
@@ -288,19 +290,58 @@ Payload features to use:
 
 ## 12. Admin experience (Payload)
 
-- `/admin` is the cooperative dashboard; no cPanel content editing.
-- Arabic RTL admin, branded with the cooperative logo and colors. Payload's i18n sets RTL for Arabic; custom field labels are translated.
-- Roles:
-  - **Admin:** all collections, users, settings, exports.
-  - **Editor:** prices, sites, news, requests, media; no users/settings.
-- Dashboard widgets or default collections for: latest prices, new account requests, new contact messages, sites missing coordinates.
-- Price update flow: choose product → enter price and effective date → save. The public page revalidates.
-- Site update flow: edit hours/phone → set coordinates on a map picker → save.
-- Request inbox: list with status filters, detail view, call/WhatsApp links, CSV export.
-- Media library: upload, alt text, focal point, image sizes.
-- Live preview for news/pages (optional).
-- Audit: Payload versions for content; request status history via a `statusLog` array or timestamps.
-- Staff training: a one-page Arabic guide with screenshots for the five most common tasks.
+The staff are not technical. The dashboard is designed around four tasks, not around database collections.
+
+### Dashboard home
+
+```text
+┌──────────────────────────────────────────────────┐
+│  لوحة تحكم تعاونية الحبوب والبقول الجافة          │
+│  مرحباً، [الاسم]                    [تسجيل الخروج] │
+│                                                  │
+│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ │
+│  │  تحديث الأسعار │ │  إضافة خبر   │ │  رفع صورة    │ │
+│  │  آخر تحديث: …  │ │  مسودة/نشر   │ │  المعرض      │ │
+│  └─────────────┘ └─────────────┘ └─────────────┘ │
+│  ┌─────────────┐                                 │
+│  │ طلبات الحساب │  3 جديدة                        │
+│  └─────────────┘                                 │
+│                                                  │
+│  حالة الموقع: منشور · آخر تحديث منذ ساعتين        │
+└──────────────────────────────────────────────────┘
+```
+
+- Four large Arabic cards with icons and a one-line description. Each opens the exact screen for the task; no collection browsing required.
+- A badge on "طلبات الحساب" shows new requests.
+- A status line shows the last price update and whether the site is current.
+
+### Navigation
+
+The sidebar is reduced to: **الأسعار، المواقع، الأخبار، الصور، الطلبات، الإعدادات**. Collections the editor does not need are hidden with access control and `admin.group`, not merely left unused.
+
+### Task flows
+
+- **Update a price:** one screen. Product is preselected from the dashboard; enter price and effective date; save. Confirmation: "تم النشر — ظهر السعر الآن على الموقع" with a link to `/prix`.
+- **Publish an article:** title, main image, short summary, body, publish. The slug is generated automatically and hidden unless the editor opens "خيارات متقدمة". Draft and preview are available; the editor sees "معاينة" and "نشر".
+- **Upload a photo:** drag and drop, optional caption, required Arabic alt text with an example, automatic sizes. No focal-point editing unless the editor opens advanced options.
+- **Handle a request:** inbox with status buttons (جديد، قيد المعالجة، مكتمل), phone/WhatsApp links, and a note field. CSV export for the admin.
+
+### Simplicity rules
+
+- Arabic labels everywhere, with a short help sentence under any field a non-technical user might hesitate over.
+- Advanced fields (slug, status, coordinates, SEO) are collapsed or moved to the sidebar and marked "متقدم".
+- No raw JSON, no relationship IDs, no database jargon in labels.
+- Every saved item gets a "عرض على الموقع" link.
+- Empty states explain the next action in one sentence.
+- Large controls and generous spacing; works on a phone.
+- Default admin language is Arabic; verify the login screen, date picker, and rich-text toolbar are RTL too.
+
+### Roles and training
+
+- **Admin:** all collections, users, settings, exports.
+- **Editor:** prices, sites, news, media, requests; no users/settings.
+- A one-page Arabic guide with screenshots for the four tasks, plus a 30-minute training session and a named fallback contact.
+- Payload versions keep content history; request status changes are timestamped in a `statusLog`.
 
 ## 13. Visual and motion direction
 
@@ -399,6 +440,7 @@ The season story is the largest phase 6 item. It can launch with an SVG/CSS stal
 - No `[[...]]` tokens remain in rendered pages.
 - No `href="#"` remains unless it is a real no-op control with a label.
 - Payload `/admin` is reachable, Arabic RTL, and usable on a phone.
+- A non-technical editor can publish an article, upload a photo, and update a price from the dashboard cards without opening a collection list, typing a slug, or seeing an ID.
 - An editor can update a price and the public `/prix` page reflects it without a rebuild; the change is versioned.
 - An editor can edit a site's hours/coordinates and `/reseau` reflects it.
 - The network page shows all 7 sites on a map and in a list; geolocation and commune selection work; call and directions links work.
