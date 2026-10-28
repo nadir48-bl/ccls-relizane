@@ -25,7 +25,7 @@ export const placeholders = {
 export const figures = {
   years: "99+",
   clients: "6 000+",
-  sites: "07",
+  sites: "13",
   capacity: "1,2 مليون",
 };
 
@@ -85,7 +85,7 @@ export const hero = {
   },
   chips: [
     {
-      value: "07",
+      value: "13",
       unit: "مواقع",
       label: "عبر الولاية",
       token: placeholders.STAT_SITES,
@@ -247,7 +247,7 @@ export const stats: {
       token: placeholders.STAT_CLIENTS,
     },
     {
-      value: 7,
+      value: 13,
       pad: 2,
       label: "مواقع عبر الولاية",
       token: placeholders.STAT_SITES,

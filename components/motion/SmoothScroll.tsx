@@ -70,7 +70,8 @@ export default function SmoothScroll() {
 
       event.preventDefault();
       lenis.scrollTo(target, {
-        offset: -96,
+        // Lenis already subtracts the target's scroll-margin-top.
+        offset: 0,
         duration: 1.15,
         easing: (t) => 1 - Math.pow(1 - t, 3),
         onComplete: () => {

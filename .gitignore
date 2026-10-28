@@ -13,6 +13,11 @@
 # testing
 /coverage
 
+# payload local data
+.data/*
+!.data/.gitkeep
+/media
+
 # next.js
 /.next/
 /out/

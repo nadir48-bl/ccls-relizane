@@ -706,6 +706,35 @@ html.lenis body {
 }
 
 /* ------------------------------------------------------------------ */
+/* Mobile nav                                                          */
+/* ------------------------------------------------------------------ */
+
+.mobile-nav {
+  position: absolute;
+  inset-inline: 0;
+  top: 100%;
+  max-height: calc(100dvh - var(--header-h));
+  overflow-y: auto;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    opacity 0.16s var(--ease-out),
+    transform 0.16s var(--ease-out),
+    visibility 0s linear 0.16s;
+}
+
+.mobile-nav[data-open="true"] {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.22s var(--ease-out),
+    transform 0.22s var(--ease-out),
+    visibility 0s;
+}
+
+/* ------------------------------------------------------------------ */
 /* News                                                               */
 /* ------------------------------------------------------------------ */
 
@@ -1613,6 +1642,11 @@ footer:hover .footer-wheat-img {
   .footer-top:hover svg,
   .footer-top:focus-visible svg {
     transform: none;
+  }
+
+  .mobile-nav,
+  .mobile-nav[data-open="true"] {
+    transition: none;
   }
 }
 
