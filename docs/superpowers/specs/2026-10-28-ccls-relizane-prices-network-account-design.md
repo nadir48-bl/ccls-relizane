@@ -69,7 +69,7 @@ Payload gives the cooperative a real dashboard without adding a second system or
 
 ## 5. Non-goals
 
-- Customer login/portal, online payments, ERP or inventory integration.
+- Customer login/portal and real delivery-slip tracking until a records integration exists; online payments, ERP or inventory integration.
 - A real-time market feed. Prices are entered by staff.
 - A full CMS for every string. Payload manages operational content; the design system stays in code.
 - A French version at launch (pending decision; default is to remove the dead switch and add French later).
@@ -199,7 +199,9 @@ Payload cannot run on a static/shared cPanel account. It needs a Node process an
 
 The five routes `/prix`, `/calendrier`, `/documents`, `/reseau`, and `/materiel` are already covered by the shortcut detail pages plan. This design layers live Payload data and the map on `/prix` and `/reseau`, and adds `/adhesion`, `/actualites`, `/faq`, `/contact`, and the trust/legal pages. Do not rebuild the existing five from scratch.
 
-**Slugs are provisional.** The earlier detail plan uses `/prix`, `/calendrier`, `/documents`, `/reseau`, `/materiel`; the current working tree links to `/tarifs`, `/espace-client`, and `/conseil-agricole`. Reconcile them once, at the start of planning, and use one spelling everywhere. This affects links, redirects, SEO, and the Payload preview URLs, so it is a planning decision, not a late rename.
+**Slugs: the working tree has moved ahead.** New pages already exist at `/tarifs` (prices + calendar), `/conseil-agricole` (advice guide), and `/espace-client` (customer space + account form), and the header/footer now link to them. Map the earlier five-page plan onto these routes rather than shipping two spellings: `/prix` → `/tarifs`, `/calendrier` → `/tarifs#calendrier`, `/documents` → `/espace-client#dossier`, `/reseau` → the home network section, `/materiel` → the services section. Confirm this mapping at the start of planning; it affects links, redirects, SEO, and Payload preview URLs.
+
+**The customer space is a shell, not a portal.** `/espace-client` currently shows a `ClientDashboard` prototype with sample delivery slips and equipment reservations. Those are fake financial records. They must not ship as if real. Either label the section clearly as a preview ("نموذج تجريبي") or remove it until there is a real customer login and an ERP/records integration. The account application form is real and goes to Payload; the slip tracker is not.
 
 **Navigation:** five primary items maximum — الرئيسية، الأسعار، شبكتنا، الخدمات، تواصل — plus the CTA "افتح حسابك". Move about, news, FAQ, and legal links to the footer or a secondary menu. The current eight items are too many.
 
@@ -465,7 +467,7 @@ Ranked by importance:
 8. **Mail and WhatsApp:** which mailbox receives account requests and contact messages, can it send authenticated SMTP, and which WhatsApp number should the handoff use?
 9. **Season story:** is the scroll-driven season story required at launch, and are real photos available? The fallback is an SVG/CSS stalk with the existing field photography, or a later enhancement.
 10. **Admin users:** who will use `/admin`, how many people, and can any editor publish a price or does a manager approve it?
-11. **Existing portal:** is there already a customer portal we should link to instead of building an application wizard?
+11. **Customer space:** is there already a customer portal, and should `/espace-client` ship as a clearly labeled preview of slip tracking, or show only the real account application until a login and records integration exist? Fake delivery slips with amounts cannot look real.
 12. **French at launch:** full French version, key pages only, or remove the FR switch for now?
 13. **Deployment access:** domain, SSL, DNS, and SSH access to the chosen host.
 14. **Privacy:** consent text, data retention period, and any legal requirements.
